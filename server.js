@@ -5,8 +5,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const server = http.createServer(app);
-const API_URL = process.env.API_URL ;
-const io = new Server(server, {
+const API_URL = "https://chating-application-backend-g2y6.onrender.com";
+const io = new Server(server, { 
     cors: {
         origin: "https://chating-application-backend-g2y6.onrender.com"
     }
