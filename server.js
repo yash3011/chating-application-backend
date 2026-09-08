@@ -17,7 +17,7 @@ app.use(express.static("public"));
 
 let rooms = {};
 
-app.post("/create-room", (req,res)=>{
+app.post(`${API_URL}/create-room`, (req,res)=>{
     try{
     const roomCode = uuidv4().slice(0,6).toUpperCase();
 
@@ -32,7 +32,7 @@ app.post("/create-room", (req,res)=>{
     }
 });
 
-app.post("/join-room",(req,res)=>{
+app.post(`${API_URL}/join-room`,(req,res)=>{
 
     const roomCode = String(req.body?.roomCode || "").trim().toUpperCase();
 
