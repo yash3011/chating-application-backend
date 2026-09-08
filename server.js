@@ -5,10 +5,9 @@ const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const server = http.createServer(app);
-const API_URL = "https://chating-application-backend-g2y6.onrender.com";
-const io = new Server(server, { 
+const io = new Server(server, {
     cors: {
-        origin: "https://chating-application-backend-g2y6.onrender.com"
+        origin: process.env.FRONTEND_URL || "*"
     }
 });
 
@@ -17,7 +16,11 @@ app.use(express.static("public"));
 
 let rooms = {};
 
-app.post(`${API_URL}/create-room`, (req,res)=>{
+app.get("/health", (req,res)=>{
+    res.json({status:"ok"});
+});
+
+app.post("/create-room", (req,res)=>{
     try{
     const roomCode = uuidv4().slice(0,6).toUpperCase();
 
@@ -32,7 +35,7 @@ app.post(`${API_URL}/create-room`, (req,res)=>{
     }
 });
 
-app.post(`${API_URL}/join-room`,(req,res)=>{
+app.post("/join-room",(req,res)=>{
 
     const roomCode = String(req.body?.roomCode || "").trim().toUpperCase();
 
