@@ -1,16 +1,19 @@
 const express = require("express");
 const http = require("http");
+const cors = require("cors");
 const { Server } = require("socket.io");
 const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 const server = http.createServer(app);
+const frontendOrigin = process.env.FRONTEND_URL || "https://turtle-dove.onrender.com";
 const io = new Server(server, {
     cors: {
-        origin: "https://turtle-dove.onrender.com"
+        origin: frontendOrigin
     }
 });
 
+app.use(cors({origin: frontendOrigin}));
 app.use(express.json());
 app.use(express.static("public"));
 
